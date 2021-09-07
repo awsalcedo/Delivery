@@ -1,17 +1,28 @@
 import 'dart:ui';
 
+import 'package:delivery_alex_salcedo/src/login/login_controller.dart';
 import 'package:delivery_alex_salcedo/src/utils/my_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:lottie/lottie.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key? key}) : super(key: key);
+  LoginPage({Key key}) : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+  LoginController _con = new LoginController();
+  @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      _con.init(context);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,10 +63,13 @@ class _LoginPageState extends State<LoginPage> {
         Text('¿No tienes cuenta?',
             style: TextStyle(color: MyColors.primaryColor)),
         SizedBox(width: 7),
-        Text(
-          'Registrate',
-          style: TextStyle(
-              fontWeight: FontWeight.bold, color: MyColors.primaryColor),
+        GestureDetector(
+          onTap: _con.goToRegisterPage,
+          child: Text(
+            'Registrate',
+            style: TextStyle(
+                fontWeight: FontWeight.bold, color: MyColors.primaryColor),
+          ),
         )
       ],
     );

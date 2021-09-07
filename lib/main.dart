@@ -1,4 +1,5 @@
 import 'package:delivery_alex_salcedo/src/login/login_page.dart';
+import 'package:delivery_alex_salcedo/src/register/register_page.dart';
 import 'package:delivery_alex_salcedo/src/utils/my_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +8,7 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-  MyApp({Key? key}) : super(key: key);
+  MyApp({Key key}) : super(key: key);
 
   @override
   _MyAppState createState() => _MyAppState();
@@ -20,7 +21,10 @@ class _MyAppState extends State<MyApp> {
         title: 'Delivery App Flutter',
         debugShowCheckedModeBanner: false,
         initialRoute: 'login',
-        routes: {'login': (BuildContext context) => LoginPage()},
+        routes: {
+          'login': (BuildContext context) => LoginPage(),
+          'register': (BuildContext context) => RegisterPage()
+        },
         theme: ThemeData(
           primaryColor: MyColors.primaryColor,
           //fontFamily: 'NimbusSans'
