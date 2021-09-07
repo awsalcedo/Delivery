@@ -21,6 +21,9 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         initialRoute: 'login',
         routes: {'login': (BuildContext context) => LoginPage()},
-        theme: ThemeData(primaryColor: MyColors.primaryColor));
+        theme: ThemeData(
+          primaryColor: MyColors.primaryColor,
+          //fontFamily: 'NimbusSans'
+        ));
   }
 }

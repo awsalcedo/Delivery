@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:delivery_alex_salcedo/src/utils/my_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -30,7 +31,8 @@ class _LoginPageState extends State<LoginPage> {
             ),
             Column(
               children: [
-                _imageBanner(),
+                //_imageBanner(),
+                _lottieAnimation(),
                 _textFieldEmail(),
                 _textFieldPassword(),
                 _buttonLogin(),
@@ -139,7 +141,19 @@ class _LoginPageState extends State<LoginPage> {
     return Text(
       'LOGIN',
       style: TextStyle(
-          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 22),
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 22,
+          fontFamily: 'NimbusSans'),
+    );
+  }
+
+  Widget _lottieAnimation() {
+    return Container(
+      margin: EdgeInsets.only(
+          top: 155, bottom: MediaQuery.of(context).size.height * 0.17),
+      child: Lottie.asset('assets/json/delivery.json',
+          width: 350, height: 200, fit: BoxFit.fill),
     );
   }
 }
