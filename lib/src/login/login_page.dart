@@ -40,15 +40,17 @@ class _LoginPageState extends State<LoginPage> {
               top: 60,
               left: 25,
             ),
-            Column(
-              children: [
-                //_imageBanner(),
-                _lottieAnimation(),
-                _textFieldEmail(),
-                _textFieldPassword(),
-                _buttonLogin(),
-                _textDontHaveAccount()
-              ],
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  //_imageBanner(),
+                  _lottieAnimation(),
+                  _textFieldEmail(),
+                  _textFieldPassword(),
+                  _buttonLogin(),
+                  _textDontHaveAccount()
+                ],
+              ),
             )
           ],
         ),
