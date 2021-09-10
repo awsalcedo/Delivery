@@ -1,3 +1,4 @@
+import 'package:delivery_alex_salcedo/src/models/user.dart';
 import 'package:flutter/material.dart';
 
 class RegisterController {
@@ -20,6 +21,13 @@ class RegisterController {
     String phone = phoneController.text.trim();
     String password = passwordController.text.trim();
     String confirmPassword = confirmPasswordController.text.trim();
+
+    User user = new User(
+        email: email,
+        name: name,
+        lastname: lastName,
+        phone: phone,
+        password: password);
 
     print('EMAIL: $email');
     print('NAME: $name');

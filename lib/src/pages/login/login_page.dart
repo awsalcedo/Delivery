@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:delivery_alex_salcedo/src/login/login_controller.dart';
+import 'package:delivery_alex_salcedo/src/pages/login/login_controller.dart';
 import 'package:delivery_alex_salcedo/src/utils/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';

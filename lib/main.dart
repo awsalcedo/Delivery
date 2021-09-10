@@ -1,5 +1,5 @@
-import 'package:delivery_alex_salcedo/src/login/login_page.dart';
-import 'package:delivery_alex_salcedo/src/register/register_page.dart';
+import 'package:delivery_alex_salcedo/src/pages/login/login_page.dart';
+import 'package:delivery_alex_salcedo/src/pages/register/register_page.dart';
 import 'package:delivery_alex_salcedo/src/utils/my_colors.dart';
 import 'package:flutter/material.dart';
 
