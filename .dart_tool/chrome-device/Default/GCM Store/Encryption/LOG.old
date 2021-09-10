@@ -1,3 +1,2 @@
-2021/09/07-11:44:21.151 6a03 Reusing MANIFEST /private/var/folders/jq/r7hr1gqx5nj1903p0zfx5v9c0000gp/T/flutter_tools.Z92FKk/flutter_tools_chrome_device.utdi7j/Default/GCM Store/Encryption/MANIFEST-000001
-2021/09/07-11:44:21.151 6a03 Recovering log #3
-2021/09/07-11:44:21.151 6a03 Reusing old log /private/var/folders/jq/r7hr1gqx5nj1903p0zfx5v9c0000gp/T/flutter_tools.Z92FKk/flutter_tools_chrome_device.utdi7j/Default/GCM Store/Encryption/000003.log 
+2021/09/10-15:40:31.979 6903 Creating DB /private/var/folders/jq/r7hr1gqx5nj1903p0zfx5v9c0000gp/T/flutter_tools.KShPtb/flutter_tools_chrome_device.iaqVfF/Default/GCM Store/Encryption since it was missing.
+2021/09/10-15:40:33.539 6903 Reusing MANIFEST /private/var/folders/jq/r7hr1gqx5nj1903p0zfx5v9c0000gp/T/flutter_tools.KShPtb/flutter_tools_chrome_device.iaqVfF/Default/GCM Store/Encryption/MANIFEST-000001

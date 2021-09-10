@@ -1,3 +1,2 @@
-2021/09/07-11:44:04.319 6903 Reusing MANIFEST /private/var/folders/jq/r7hr1gqx5nj1903p0zfx5v9c0000gp/T/flutter_tools.Z92FKk/flutter_tools_chrome_device.utdi7j/Default/Site Characteristics Database/MANIFEST-000001
-2021/09/07-11:44:04.336 6903 Recovering log #3
-2021/09/07-11:44:04.337 6903 Reusing old log /private/var/folders/jq/r7hr1gqx5nj1903p0zfx5v9c0000gp/T/flutter_tools.Z92FKk/flutter_tools_chrome_device.utdi7j/Default/Site Characteristics Database/000003.log 
+2021/09/10-15:39:54.291 e103 Creating DB /private/var/folders/jq/r7hr1gqx5nj1903p0zfx5v9c0000gp/T/flutter_tools.KShPtb/flutter_tools_chrome_device.iaqVfF/Default/Site Characteristics Database since it was missing.
+2021/09/10-15:39:58.275 e103 Reusing MANIFEST /private/var/folders/jq/r7hr1gqx5nj1903p0zfx5v9c0000gp/T/flutter_tools.KShPtb/flutter_tools_chrome_device.iaqVfF/Default/Site Characteristics Database/MANIFEST-000001
