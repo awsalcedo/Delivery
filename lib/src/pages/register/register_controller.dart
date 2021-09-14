@@ -60,6 +60,16 @@ class RegisterController {
 
     MySnackBar.show(context, responseApi.message);
 
+    if (responseApi.success) {
+      Future.delayed(Duration(seconds: 3), () {
+        Navigator.pushReplacementNamed(context, 'login');
+      });
+    }
+
     print('RESPUESTA: ${responseApi.toJson()}');
+  }
+
+  void back() {
+    Navigator.pop(context);
   }
 }
