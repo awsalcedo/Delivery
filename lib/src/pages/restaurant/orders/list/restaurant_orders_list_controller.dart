@@ -2,7 +2,7 @@ import 'package:delivery_alex_salcedo/src/models/user.dart';
 import 'package:delivery_alex_salcedo/src/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
 
-class ClientProductsListController {
+class RestaurantOrdersListController {
   BuildContext context;
   SharedPref _sharedPref = new SharedPref();
   GlobalKey<ScaffoldState> key = new GlobalKey<ScaffoldState>();
@@ -12,9 +12,7 @@ class ClientProductsListController {
   Future init(BuildContext context, Function refresh) async {
     this.context = context;
     this.refresh = refresh;
-    //Se carga la sesión del usuario almacenada en la SharedPreferences
     user = User.fromJson(await _sharedPref.read('user'));
-    //Actualizar la página
     refresh();
   }
 
