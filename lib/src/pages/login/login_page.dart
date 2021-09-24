@@ -63,14 +63,16 @@ class _LoginPageState extends State<LoginPage> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text('¿No tienes cuenta?',
-            style: TextStyle(color: MyColors.primaryColor)),
+            style: TextStyle(color: MyColors.primaryColor, fontSize: 17)),
         SizedBox(width: 7),
         GestureDetector(
           onTap: _con.goToRegisterPage,
           child: Text(
             'Registrate',
             style: TextStyle(
-                fontWeight: FontWeight.bold, color: MyColors.primaryColor),
+                fontWeight: FontWeight.bold,
+                color: MyColors.primaryColor,
+                fontSize: 17),
           ),
         )
       ],

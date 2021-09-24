@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "862931113503",
+    "project_id": "tfm-delivery",
+    "storage_bucket": "tfm-delivery.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:862931113503:android:8883d2f114487d06ed272a",
+        "android_client_info": {
+          "package_name": "com.example.delivery_alex_salcedo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "862931113503-umd39h15u3qje4ilurpm3e4rf8tc19u9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.delivery_alex_salcedo",
+            "certificate_hash": "e5b88ea3db10ea0aac85385b1ecaf3b36cc26baa"
+          }
+        },
+        {
+          "client_id": "862931113503-5fkckjgtl8rt0kia9b9a2beb5fird76q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0gQ3pQrGiJRKkiJ5K8rDyaxf5VzQGyNU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "862931113503-5fkckjgtl8rt0kia9b9a2beb5fird76q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
