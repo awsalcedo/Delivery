@@ -53,11 +53,6 @@ class ClientUpdateController {
       return;
     }
 
-    if (imageFile == null) {
-      MySnackBar.show(context, 'Seleccione una imagen');
-      return;
-    }
-
     // Mostrar el cuadro de dialogo de progreso
     _progressDialog.show(max: 100, msg: 'Por favor espere un momento...');
 
@@ -66,11 +61,11 @@ class ClientUpdateController {
     isEnable = false;
 
     User myUser = new User(
-      id: user.id,
-      name: name,
-      lastname: lastName,
-      phone: phone,
-    );
+        id: user.id,
+        name: name,
+        lastname: lastName,
+        phone: phone,
+        image: user.image);
 
     Stream stream = await usersProvider.update(myUser, imageFile);
     stream.listen((res) async {
@@ -85,6 +80,7 @@ class ClientUpdateController {
       if (responseApi.success) {
         // Obtener el usuario de la BDD por ID
         user = await usersProvider.getById(myUser.id);
+        print('Usuario obtenido de la BDD: ${user.toJson()}');
 
         // Guardar los datos obtenidos de la BDD en sesion
         _sharedPref.save('user', user.toJson());
