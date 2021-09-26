@@ -5,18 +5,17 @@ import 'package:delivery_alex_salcedo/src/models/response_api.dart';
 import 'package:delivery_alex_salcedo/src/models/user.dart';
 import 'package:delivery_alex_salcedo/src/provider/users_provider.dart';
 import 'package:delivery_alex_salcedo/src/utils/my_snackbar.dart';
+import 'package:delivery_alex_salcedo/src/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
-class RegisterController {
+class ClientUpdateController {
   BuildContext context;
-  TextEditingController emailController = new TextEditingController();
   TextEditingController nameController = new TextEditingController();
   TextEditingController lastNameController = new TextEditingController();
   TextEditingController phoneController = new TextEditingController();
-  TextEditingController passwordController = new TextEditingController();
-  TextEditingController confirmPasswordController = new TextEditingController();
 
   UsersProvider usersProvider = new UsersProvider();
 
@@ -28,40 +27,29 @@ class RegisterController {
 
   bool isEnable = true;
 
-  Future init(BuildContext context, Function refresh) {
+  User user;
+  SharedPref _sharedPref = new SharedPref();
+
+  Future init(BuildContext context, Function refresh) async {
     this.context = context;
     this.refresh = refresh;
     usersProvider.init(context);
     _progressDialog = ProgressDialog(context: context);
+    user = User.fromJson(await _sharedPref.read('user'));
+    nameController.text = user.name;
+    lastNameController.text = user.lastname;
+    phoneController.text = user.phone;
+    refresh();
   }
 
-  void register() async {
-    String email = emailController.text.trim();
+  void update() async {
     String name = nameController.text.trim();
     String lastName = lastNameController.text.trim();
     String phone = phoneController.text.trim();
-    String password = passwordController.text.trim();
-    String confirmPassword = confirmPasswordController.text.trim();
 
     // Validacion de campos
-    if (email.isEmpty ||
-        name.isEmpty ||
-        lastName.isEmpty ||
-        phone.isEmpty ||
-        password.isEmpty ||
-        confirmPassword.isEmpty) {
+    if (name.isEmpty || lastName.isEmpty || phone.isEmpty) {
       MySnackBar.show(context, 'Por favor ingrese todos los campos');
-      return;
-    }
-
-    if (confirmPassword != password) {
-      MySnackBar.show(context, 'Las contraseñas no coinciden');
-      return;
-    }
-
-    if (password.length < 6) {
-      MySnackBar.show(
-          context, 'La contraseña debe tener al menos 6 caracteres');
       return;
     }
 
@@ -77,30 +65,33 @@ class RegisterController {
     // del usuario en la BDD y alamacenar la imagen en Firebase
     isEnable = false;
 
-    User user = new User(
-        email: email,
-        name: name,
-        lastname: lastName,
-        phone: phone,
-        password: password);
+    User myUser = new User(
+      id: user.id,
+      name: name,
+      lastname: lastName,
+      phone: phone,
+    );
 
-    Stream stream = await usersProvider.createWithImage(user, imageFile);
-    stream.listen((res) {
+    Stream stream = await usersProvider.update(myUser, imageFile);
+    stream.listen((res) async {
       // Ocultar el cuadro de dialogo de progreso
       _progressDialog.close();
 
       // Parsear la respuesta
       ResponseApi responseApi = ResponseApi.fromJson(json.decode(res));
 
-      print('RESPUESTA: ${responseApi.toJson()}');
-
-      MySnackBar.show(context, responseApi.message);
+      Fluttertoast.showToast(msg: responseApi.message);
 
       if (responseApi.success) {
-        Future.delayed(Duration(seconds: 3), () {
-          // Se envía al usuario a la pantalla de login para que inicie sesión
-          Navigator.pushReplacementNamed(context, 'login');
-        });
+        // Obtener el usuario de la BDD por ID
+        user = await usersProvider.getById(myUser.id);
+
+        // Guardar los datos obtenidos de la BDD en sesion
+        _sharedPref.save('user', user.toJson());
+
+        // Enviar al usuari a la pantalla principal
+        Navigator.pushNamedAndRemoveUntil(
+            context, 'client/products/list', (route) => false);
       } else {
         isEnable = true;
       }
