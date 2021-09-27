@@ -4,7 +4,9 @@ import 'dart:io';
 import 'package:delivery_alex_salcedo/src/api/environment.dart';
 import 'package:delivery_alex_salcedo/src/models/response_api.dart';
 import 'package:delivery_alex_salcedo/src/models/user.dart';
+import 'package:delivery_alex_salcedo/src/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 
@@ -12,9 +14,11 @@ class UsersProvider {
   String _url = Environment.API_DELIVERY;
   String _api = "/api/users";
   BuildContext context;
+  User sessionUser;
 
-  Future init(BuildContext context) {
+  Future init(BuildContext context, {User sessionUser}) {
     this.context = context;
+    this.sessionUser = sessionUser;
   }
 
   // Llamar al servicio de creacion de usuario con imagen
@@ -86,6 +90,8 @@ class UsersProvider {
       Uri url = Uri.http(_url, '$_api/update');
       final request = http.MultipartRequest('PUT', url);
 
+      request.headers['Authorization'] = sessionUser.sessionToken;
+
       // Si el usuario selecciono una imagen
       if (image != null) {
         request.files.add(http.MultipartFile('image',
@@ -97,6 +103,14 @@ class UsersProvider {
 
       // Se envia la peticion al backend de NodeJS
       final response = await request.send();
+
+      if (response.statusCode == 401) {
+        Fluttertoast.showToast(msg: 'La sesión expiró');
+
+        // Cerrar la sesseion del usuario
+        new SharedPref().logout(context, sessionUser.id);
+      }
+
       return response.stream.transform(utf8.decoder);
     } catch (e) {
       print('Error: $e');
@@ -111,14 +125,44 @@ class UsersProvider {
 
       Map<String, String> headers = {
         'Content-type': 'application/json',
+        'Authorization': sessionUser.sessionToken
       };
 
       final res = await http.get(url, headers: headers);
+
+      // Si no está autorizado
+      if (res.statusCode == 401) {
+        Fluttertoast.showToast(msg: 'La sesión expiró');
+
+        // Cerrar la sesseion del usuario
+        new SharedPref().logout(context, sessionUser.id);
+      }
+
       final data = json.decode(res.body);
 
       User user = User.fromJson(data);
 
       return user;
+    } catch (e) {
+      print('Error: $e');
+      return null;
+    }
+  }
+
+  // Llamar al servicio para cerrar sesión del usuario
+  Future<ResponseApi> logout(String idUser) async {
+    try {
+      Uri url = Uri.http(_url, '$_api/logout');
+      String bodyParams = json.encode({'id': idUser});
+
+      Map<String, String> headers = {
+        'Content-type': 'application/json',
+      };
+
+      final res = await http.post(url, headers: headers, body: bodyParams);
+      final data = json.decode(res.body);
+      ResponseApi responseApi = ResponseApi.fromJson(data);
+      return responseApi;
     } catch (e) {
       print('Error: $e');
       return null;

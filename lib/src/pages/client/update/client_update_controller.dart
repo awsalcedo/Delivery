@@ -33,9 +33,15 @@ class ClientUpdateController {
   Future init(BuildContext context, Function refresh) async {
     this.context = context;
     this.refresh = refresh;
-    usersProvider.init(context);
+
     _progressDialog = ProgressDialog(context: context);
+
+    // Obtener el usuario de session
     user = User.fromJson(await _sharedPref.read('user'));
+
+    print('TOKEN ENVIADO: ${user.sessionToken}');
+    usersProvider.init(context, sessionUser: user);
+
     nameController.text = user.name;
     lastNameController.text = user.lastname;
     phoneController.text = user.phone;
