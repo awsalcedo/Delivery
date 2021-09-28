@@ -3,6 +3,7 @@ import 'package:delivery_alex_salcedo/src/pages/client/update/client_update_page
 import 'package:delivery_alex_salcedo/src/pages/delivery/orders/list/delivery_orders_list_page.dart';
 import 'package:delivery_alex_salcedo/src/pages/login/login_page.dart';
 import 'package:delivery_alex_salcedo/src/pages/register/register_page.dart';
+import 'package:delivery_alex_salcedo/src/pages/restaurant/categories/create/restaurant_categories_create_page.dart';
 import 'package:delivery_alex_salcedo/src/pages/restaurant/orders/list/restaurant_orders_list_page.dart';
 import 'package:delivery_alex_salcedo/src/pages/roles/roles_page.dart';
 import 'package:delivery_alex_salcedo/src/utils/my_colors.dart';
@@ -35,6 +36,8 @@ class _MyAppState extends State<MyApp> {
           'client/update': (BuildContext context) => ClientUpdatePage(),
           'restaurant/orders/list': (BuildContext context) =>
               RestaurantOrdersListPage(),
+          'restaurant/categories/create': (BuildContext context) =>
+              RestaurantCategoriesCreatePage(),
           'delivery/orders/list': (BuildContext context) =>
               DeliveryOrderslistPage(),
         },
