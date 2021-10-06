@@ -43,7 +43,6 @@ class _LoginPageState extends State<LoginPage> {
             SingleChildScrollView(
               child: Column(
                 children: [
-                  //_imageBanner(),
                   _lottieAnimation(),
                   _textFieldEmail(),
                   _textFieldPassword(),
@@ -139,18 +138,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Container _imageBanner() {
-    return Container(
-      margin: EdgeInsets.only(
-          top: 100, bottom: MediaQuery.of(context).size.height * 0.22),
-      child: Image.asset(
-        'assets/img/delivery.png',
-        width: 200,
-        height: 200,
-      ),
-    );
-  }
-
   Container _circleLogin() {
     return Container(
       width: 240,
@@ -175,9 +162,9 @@ class _LoginPageState extends State<LoginPage> {
   Widget _lottieAnimation() {
     return Container(
       margin: EdgeInsets.only(
-          top: 155, bottom: MediaQuery.of(context).size.height * 0.17),
-      child: Lottie.asset('assets/json/delivery.json',
-          width: 350, height: 200, fit: BoxFit.fill),
+          top: 115, bottom: MediaQuery.of(context).size.height * 0.05),
+      child: Lottie.asset('assets/json/delivery-boy.json',
+          width: 275, height: 200, fit: BoxFit.fill),
     );
   }
 }
