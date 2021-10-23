@@ -31,4 +31,8 @@ class RestaurantOrdersListController {
   void goToCategoryCreate() {
     Navigator.pushNamed(context, 'restaurant/categories/create');
   }
+
+  void goToProductCreate() {
+    Navigator.pushNamed(context, 'restaurant/products/create');
+  }
 }

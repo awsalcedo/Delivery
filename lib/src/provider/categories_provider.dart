@@ -45,4 +45,33 @@ class CategoriesProvider {
       return null;
     }
   }
+
+  Future<List<Category>> getAll() async {
+    try {
+      Uri url = Uri.http(_url, '$_api/getAll');
+
+      Map<String, String> headers = {
+        'Content-type': 'application/json',
+        'Authorization': sessionUser.sessionToken //Asegurar la consulta
+      };
+
+      final res = await http.get(url, headers: headers);
+
+      // Respuesta no autorizado
+      if (res.statusCode == 401) {
+        Fluttertoast.showToast(msg: 'La sesión expiró');
+        new SharedPref().logout(context, sessionUser.id);
+      }
+
+      // Obtener las categorías
+      final data = json.decode(res.body);
+
+      // Transformar una lista de objetos json a una List<Category>
+      Category category = Category.fromJsonList(data);
+      return category.toList;
+    } catch (e) {
+      print('Error: $e');
+      return [];
+    }
+  }
 }

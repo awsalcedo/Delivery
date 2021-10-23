@@ -5,6 +5,7 @@ import 'package:delivery_alex_salcedo/src/pages/login/login_page.dart';
 import 'package:delivery_alex_salcedo/src/pages/register/register_page.dart';
 import 'package:delivery_alex_salcedo/src/pages/restaurant/categories/create/restaurant_categories_create_page.dart';
 import 'package:delivery_alex_salcedo/src/pages/restaurant/orders/list/restaurant_orders_list_page.dart';
+import 'package:delivery_alex_salcedo/src/pages/restaurant/products/create/restaurant_products_create_page.dart';
 import 'package:delivery_alex_salcedo/src/pages/roles/roles_page.dart';
 import 'package:delivery_alex_salcedo/src/utils/my_colors.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +39,8 @@ class _MyAppState extends State<MyApp> {
               RestaurantOrdersListPage(),
           'restaurant/categories/create': (BuildContext context) =>
               RestaurantCategoriesCreatePage(),
+          'restaurant/products/create': (BuildContext context) =>
+              RestaurantProductsCreatePage(),
           'delivery/orders/list': (BuildContext context) =>
               DeliveryOrderslistPage(),
         },
