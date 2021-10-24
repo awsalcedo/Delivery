@@ -125,19 +125,19 @@ class _ClientProductsDetailPageState extends State<ClientProductsDetailPage> {
       child: Row(
         children: [
           IconButton(
-              onPressed: () {},
+              onPressed: _con.addItem,
               icon: Icon(
                 Icons.add_circle_outline,
                 color: Colors.grey,
                 size: 30,
               )),
           Text(
-            '1',
+            '${_con.counter}',
             style: TextStyle(
                 fontSize: 17, fontWeight: FontWeight.bold, color: Colors.grey),
           ),
           IconButton(
-              onPressed: () {},
+              onPressed: _con.removeItem,
               icon: Icon(
                 Icons.remove_circle_outline,
                 color: Colors.grey,
@@ -147,7 +147,7 @@ class _ClientProductsDetailPageState extends State<ClientProductsDetailPage> {
           Container(
             margin: EdgeInsets.only(right: 10),
             child: Text(
-              '\$${_con.product?.price ?? 0}',
+              '\$${_con.productPrice ?? 0}',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
           ),
@@ -179,7 +179,7 @@ class _ClientProductsDetailPageState extends State<ClientProductsDetailPage> {
     return Container(
       margin: EdgeInsets.only(left: 30, right: 30, top: 30, bottom: 30),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: _con.addToBag,
         style: ElevatedButton.styleFrom(
             primary: MyColors.primaryColor,
             padding: EdgeInsets.symmetric(vertical: 10),
