@@ -156,6 +156,7 @@ class _RestaurantProductsCreatePageState
           ? Card(
               elevation: 3.0,
               child: Container(
+                padding: EdgeInsets.all(15),
                 height: 100,
                 width: MediaQuery.of(context).size.width * 0.26,
                 child: Image.file(
@@ -168,6 +169,7 @@ class _RestaurantProductsCreatePageState
               elevation: 3.0,
               child: Container(
                 height: 100,
+                padding: EdgeInsets.all(10),
                 width: MediaQuery.of(context).size.width * 0.26,
                 child: Image(
                   image: AssetImage('assets/img/add_image.png'),
