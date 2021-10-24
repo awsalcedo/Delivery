@@ -42,14 +42,14 @@ class _RestaurantProductsCreatePageState
           _textFieldProductDescription(),
           _textFieldProductPrice(),
           Container(
-            height: 90,
+            height: 96,
             margin: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                _cardImage(null, 1),
-                _cardImage(null, 2),
-                _cardImage(null, 3)
+                _cardImage(_con.imageFile1, 1),
+                _cardImage(_con.imageFile2, 2),
+                _cardImage(_con.imageFile3, 3)
               ],
             ),
           ),
@@ -148,28 +148,33 @@ class _RestaurantProductsCreatePageState
   }
 
   Widget _cardImage(File imageFile, int numberFile) {
-    return imageFile != null
-        ? Card(
-            elevation: 3.0,
-            child: Container(
-              height: 100,
-              width: MediaQuery.of(context).size.width * 0.26,
-              child: Image.file(
-                imageFile,
-                fit: BoxFit.cover,
+    return GestureDetector(
+      onTap: () {
+        _con.showAlertDialog(numberFile);
+      },
+      child: imageFile != null
+          ? Card(
+              elevation: 3.0,
+              child: Container(
+                height: 100,
+                width: MediaQuery.of(context).size.width * 0.26,
+                child: Image.file(
+                  imageFile,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            )
+          : Card(
+              elevation: 3.0,
+              child: Container(
+                height: 100,
+                width: MediaQuery.of(context).size.width * 0.26,
+                child: Image(
+                  image: AssetImage('assets/img/add_image.png'),
+                ),
               ),
             ),
-          )
-        : Card(
-            elevation: 3.0,
-            child: Container(
-              height: 100,
-              width: MediaQuery.of(context).size.width * 0.26,
-              child: Image(
-                image: AssetImage('assets/img/add_image.png'),
-              ),
-            ),
-          );
+    );
   }
 
   Widget _comboBoxCategories(List<Category> categories) {
