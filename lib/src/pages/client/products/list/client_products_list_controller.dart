@@ -60,4 +60,8 @@ class ClientProductsListController {
         context: context,
         builder: (context) => ClientProductsDetailPage(product: product));
   }
+
+  void goToOrderCreatePage() {
+    Navigator.pushNamed(context, 'client/orders/create');
+  }
 }

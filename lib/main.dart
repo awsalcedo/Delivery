@@ -1,3 +1,4 @@
+import 'package:delivery_alex_salcedo/src/pages/client/orders/create/client_orders_create_page.dart';
 import 'package:delivery_alex_salcedo/src/pages/client/products/list/client_products_list_page.dart';
 import 'package:delivery_alex_salcedo/src/pages/client/update/client_update_page.dart';
 import 'package:delivery_alex_salcedo/src/pages/delivery/orders/list/delivery_orders_list_page.dart';
@@ -35,6 +36,8 @@ class _MyAppState extends State<MyApp> {
           'client/products/list': (BuildContext context) =>
               ClientProductsListPage(),
           'client/update': (BuildContext context) => ClientUpdatePage(),
+          'client/orders/create': (BuildContext context) =>
+              ClientOrdersCreatePage(),
           'restaurant/orders/list': (BuildContext context) =>
               RestaurantOrdersListPage(),
           'restaurant/categories/create': (BuildContext context) =>

@@ -64,4 +64,8 @@ class ClientProductsDetailController {
     _sharedPref.save('order', selectedProducts);
     Fluttertoast.showToast(msg: 'Producto agregado correctamente');
   }
+
+  void close() {
+    Navigator.pop(context);
+  }
 }
