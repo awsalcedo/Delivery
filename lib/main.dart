@@ -1,3 +1,5 @@
+import 'package:delivery_alex_salcedo/src/pages/client/address/create/client_address_create_page.dart';
+import 'package:delivery_alex_salcedo/src/pages/client/address/list/client_address_list_page.dart';
 import 'package:delivery_alex_salcedo/src/pages/client/orders/create/client_orders_create_page.dart';
 import 'package:delivery_alex_salcedo/src/pages/client/products/list/client_products_list_page.dart';
 import 'package:delivery_alex_salcedo/src/pages/client/update/client_update_page.dart';
@@ -38,6 +40,10 @@ class _MyAppState extends State<MyApp> {
           'client/update': (BuildContext context) => ClientUpdatePage(),
           'client/orders/create': (BuildContext context) =>
               ClientOrdersCreatePage(),
+          'client/address/list': (BuildContext context) =>
+              ClientAddressListPage(),
+          'client/address/create': (BuildContext context) =>
+              ClientAddressCreatePage(),
           'restaurant/orders/list': (BuildContext context) =>
               RestaurantOrdersListPage(),
           'restaurant/categories/create': (BuildContext context) =>
