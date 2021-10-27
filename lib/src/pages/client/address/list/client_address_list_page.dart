@@ -69,10 +69,13 @@ class _ClientAddressListPageState extends State<ClientAddressListPage> {
     return Container(
       height: 50,
       width: double.infinity,
-      margin: EdgeInsets.symmetric(horizontal: 30, vertical: 50),
+      margin: EdgeInsets.symmetric(horizontal: 50, vertical: 50),
       child: ElevatedButton(
         onPressed: () {},
-        child: Text('ACEPTAR'),
+        child: Text(
+          'ACEPTAR',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
         style: ElevatedButton.styleFrom(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
@@ -85,7 +88,7 @@ class _ClientAddressListPageState extends State<ClientAddressListPage> {
     return Container(
       height: 40,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: _con.goToNewAddress,
         child: Text('Nueva dirección'),
         style: ElevatedButton.styleFrom(primary: Colors.red),
       ),

@@ -31,7 +31,7 @@ class _ClientOrdersCreatePageState extends State<ClientOrdersCreatePage> {
         title: Text('Mi orden'),
       ),
       bottomNavigationBar: Container(
-        height: MediaQuery.of(context).size.height * 0.27,
+        height: MediaQuery.of(context).size.height * 0.28,
         child: Column(
           children: [
             Divider(
@@ -202,12 +202,12 @@ class _ClientOrdersCreatePageState extends State<ClientOrdersCreatePage> {
             Align(
               alignment: Alignment.center,
               child: Container(
-                height: 50,
+                height: 45,
                 alignment: Alignment.center,
                 child: Text(
                   'CONTINUAR',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 15,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
