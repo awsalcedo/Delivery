@@ -17,7 +17,7 @@ class _ClientAddressMapPageState extends State<ClientAddressMapPage> {
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance.addPersistentFrameCallback((timeStamp) {
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       _con.init(context, refresh);
     });
   }

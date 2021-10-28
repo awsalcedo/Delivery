@@ -46,9 +46,9 @@ class AddressProvider {
     }
   }
 
-  /*Future<List<Category>> getAll() async {
+  Future<List<Address>> getByUser(String idUser) async {
     try {
-      Uri url = Uri.http(_url, '$_api/getAll');
+      Uri url = Uri.http(_url, '$_api/findByUser/$idUser');
 
       Map<String, String> headers = {
         'Content-type': 'application/json',
@@ -63,15 +63,15 @@ class AddressProvider {
         new SharedPref().logout(context, sessionUser.id);
       }
 
-      // Obtener las categorías
+      // Obtener las direcciones
       final data = json.decode(res.body);
 
-      // Transformar una lista de objetos json a una List<Category>
-      Category category = Category.fromJsonList(data);
-      return category.toList;
+      // Transformar una lista de objetos json a una List<Address>
+      Address address = Address.fromJsonList(data);
+      return address.toList;
     } catch (e) {
       print('Error: $e');
       return [];
     }
-  }*/
+  }
 }

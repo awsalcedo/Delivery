@@ -17,7 +17,7 @@ class _ClientAddressCreatePageState extends State<ClientAddressCreatePage> {
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance.addPersistentFrameCallback((timeStamp) {
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       _con.init(context, refresh);
     });
   }
@@ -26,7 +26,6 @@ class _ClientAddressCreatePageState extends State<ClientAddressCreatePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: MyColors.primaryColor,
         title: Text('Nueva dirección'),
       ),
       bottomNavigationBar: _buttonAccept(),

@@ -61,8 +61,10 @@ class ClientAddressCreateController {
     ResponseApi responseApi = await _addressProvider.create(address);
 
     if (responseApi.success) {
+      address.id = responseApi.data;
+      _sharedPref.save('address', address);
       Fluttertoast.showToast(msg: responseApi.message);
-      Navigator.pop(context);
+      Navigator.pop(context, true);
     }
   }
 }

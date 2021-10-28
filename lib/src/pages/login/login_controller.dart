@@ -38,7 +38,7 @@ class LoginController {
     String password = passwordController.text.trim();
     ResponseApi responseApi = await usersProvider.login(email, password);
 
-    print('Respuesta object: ${responseApi}');
+    print('Respuesta object: $responseApi');
     print('Respuesta: ${responseApi.toJson()}');
 
     if (responseApi.success) {
