@@ -54,7 +54,7 @@ class _ClientAddressListPageState extends State<ClientAddressListPage> {
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 50, vertical: 50),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: _con.createOrder,
         child: Text(
           'ACEPTAR',
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
