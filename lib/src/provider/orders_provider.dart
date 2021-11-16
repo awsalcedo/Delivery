@@ -20,6 +20,7 @@ class OrdersProvider {
     this.sessionUser = sessionUser;
   }
 
+  /// Obtener las ordenes filtradas por el status
   Future<List<Order>> getByStatus(String status) async {
     try {
       print('SESION TOKEN: ${sessionUser.sessionToken}');
@@ -31,7 +32,7 @@ class OrdersProvider {
       final res = await http.get(url, headers: headers);
 
       if (res.statusCode == 401) {
-        Fluttertoast.showToast(msg: 'Sesion expirada');
+        Fluttertoast.showToast(msg: 'La sesión expiró');
         new SharedPref().logout(context, sessionUser.id);
       }
       final data = json.decode(res.body); // CATEGORIAS
@@ -56,7 +57,7 @@ class OrdersProvider {
       final res = await http.get(url, headers: headers);
 
       if (res.statusCode == 401) {
-        Fluttertoast.showToast(msg: 'Sesion expirada');
+        Fluttertoast.showToast(msg: 'La sesión expiró');
         new SharedPref().logout(context, sessionUser.id);
       }
       final data = json.decode(res.body); // CATEGORIAS
@@ -80,7 +81,7 @@ class OrdersProvider {
       final res = await http.get(url, headers: headers);
 
       if (res.statusCode == 401) {
-        Fluttertoast.showToast(msg: 'Sesion expirada');
+        Fluttertoast.showToast(msg: 'La sesión expiró');
         new SharedPref().logout(context, sessionUser.id);
       }
       final data = json.decode(res.body); // CATEGORIAS
@@ -103,7 +104,7 @@ class OrdersProvider {
       final res = await http.post(url, headers: headers, body: bodyParams);
 
       if (res.statusCode == 401) {
-        Fluttertoast.showToast(msg: 'Sesion expirada');
+        Fluttertoast.showToast(msg: 'La sesión expiró');
         new SharedPref().logout(context, sessionUser.id);
       }
 
@@ -116,9 +117,9 @@ class OrdersProvider {
     }
   }
 
-  Future<ResponseApi> updateToDispatched(Order order) async {
+  Future<ResponseApi> updateToDispatchedStatus(Order order) async {
     try {
-      Uri url = Uri.http(_url, '$_api/updateToDispatched');
+      Uri url = Uri.http(_url, '$_api/updateToDispatchedStatus');
       String bodyParams = json.encode(order);
       Map<String, String> headers = {
         'Content-type': 'application/json',
@@ -127,7 +128,7 @@ class OrdersProvider {
       final res = await http.put(url, headers: headers, body: bodyParams);
 
       if (res.statusCode == 401) {
-        Fluttertoast.showToast(msg: 'Sesion expirada');
+        Fluttertoast.showToast(msg: 'La sesión expiró');
         new SharedPref().logout(context, sessionUser.id);
       }
 
@@ -140,9 +141,9 @@ class OrdersProvider {
     }
   }
 
-  Future<ResponseApi> updateToOnTheWay(Order order) async {
+  Future<ResponseApi> updateToOnTheWayStatus(Order order) async {
     try {
-      Uri url = Uri.http(_url, '$_api/updateToOnTheWay');
+      Uri url = Uri.http(_url, '$_api/updateToOnTheWayStatus');
       String bodyParams = json.encode(order);
       Map<String, String> headers = {
         'Content-type': 'application/json',
@@ -151,7 +152,7 @@ class OrdersProvider {
       final res = await http.put(url, headers: headers, body: bodyParams);
 
       if (res.statusCode == 401) {
-        Fluttertoast.showToast(msg: 'Sesion expirada');
+        Fluttertoast.showToast(msg: 'La sesión expiró');
         new SharedPref().logout(context, sessionUser.id);
       }
 
@@ -175,7 +176,7 @@ class OrdersProvider {
       final res = await http.put(url, headers: headers, body: bodyParams);
 
       if (res.statusCode == 401) {
-        Fluttertoast.showToast(msg: 'Sesion expirada');
+        Fluttertoast.showToast(msg: 'La sesión expiró');
         new SharedPref().logout(context, sessionUser.id);
       }
 
@@ -199,7 +200,7 @@ class OrdersProvider {
       final res = await http.put(url, headers: headers, body: bodyParams);
 
       if (res.statusCode == 401) {
-        Fluttertoast.showToast(msg: 'Sesion expirada');
+        Fluttertoast.showToast(msg: 'La sesión expiró');
         new SharedPref().logout(context, sessionUser.id);
       }
 

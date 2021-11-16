@@ -54,7 +54,7 @@ class _MyAppState extends State<MyApp> {
           'restaurant/products/create': (BuildContext context) =>
               RestaurantProductsCreatePage(),
           'delivery/orders/list': (BuildContext context) =>
-              DeliveryOrderslistPage(),
+              DeliveryOrdersListPage(),
         },
         theme: ThemeData(
             primaryColor: MyColors.primaryColor,

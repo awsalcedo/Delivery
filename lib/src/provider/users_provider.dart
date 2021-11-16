@@ -168,4 +168,29 @@ class UsersProvider {
       return null;
     }
   }
+
+  // LLama al servicio para obtener los usuarios con el rol de repartidor
+  Future<List<User>> getDelivery() async {
+    try {
+      Uri url = Uri.http(_url, '$_api/findDelivery');
+      Map<String, String> headers = {
+        'Content-type': 'application/json',
+        'Authorization': sessionUser.sessionToken
+      };
+      final res = await http.get(url, headers: headers);
+
+      // Acceso no autorizado
+      if (res.statusCode == 401) {
+        Fluttertoast.showToast(msg: 'La sesion expiró');
+        new SharedPref().logout(context, sessionUser.id);
+      }
+
+      final data = json.decode(res.body);
+      User user = User.fromJsonList(data);
+      return user.toList;
+    } catch (e) {
+      print('Error: $e');
+      return null;
+    }
+  }
 }
