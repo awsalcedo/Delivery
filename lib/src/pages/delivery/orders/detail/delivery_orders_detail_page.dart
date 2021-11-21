@@ -59,17 +59,17 @@ class _DeliveryOrdersDetailPageState extends State<DeliveryOrdersDetailPage> {
               ),
               SizedBox(height: 10),
               _textDataClient('Cliente:',
-                  '${_con.order.client?.name ?? ''} ${_con.order.client?.lastname ?? ''}'),
+                  '${_con.order?.client?.name ?? ''} ${_con.order?.client?.lastname ?? ''}'),
               _textDataClient(
-                  'Entregar en:', '${_con.order.address?.address ?? ''}'),
+                  'Entregar en:', '${_con.order?.address?.address ?? ''}'),
               _textDataClient('Fecha de pedido:',
-                  '${RelativeTimeUtil.getRelativeTime(_con.order.timestamp ?? 0)}'),
+                  '${RelativeTimeUtil.getRelativeTime(_con.order?.timestamp ?? 0)}'),
               _buttonNext()
             ],
           ),
         ),
       ),
-      body: _con.order.products.length > 0
+      body: _con.order.products?.length > 0
           ? ListView(
               children: _con.order.products.map((Product product) {
                 return _cardProduct(product);

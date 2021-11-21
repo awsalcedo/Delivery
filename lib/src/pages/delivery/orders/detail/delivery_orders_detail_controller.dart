@@ -66,8 +66,13 @@ class DeliveryOrdersDetailController {
 
     Fluttertoast.showToast(
         msg: responseApi.message, toastLength: Toast.LENGTH_LONG);
-    // Navegar a la pantalla del mapa
-    Navigator.pop(context, true);
+
+    // Si la orden se actualizó su estado a DESPACHADO de manera correcta, navega hacia
+    // la pantalla del mapa
+    if (responseApi.success) {
+      Navigator.pushNamed(context, 'delivery/orders/map',
+          arguments: order.toJson());
+    }
   }
 
   void getUsersDelivery() async {
