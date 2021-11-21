@@ -31,6 +31,9 @@ class DeliveryOrdersMapController {
   Set<Polyline> polylines = {};
   List<LatLng> points = [];
 
+  // Para obtener eventos en tiempo real
+  StreamSubscription _positionStream;
+
   Future init(BuildContext context, Function refresh) async {
     this.context = context;
     this.refresh = refresh;
@@ -98,6 +101,21 @@ class DeliveryOrdersMapController {
       // Punto de entrga dell pedido
       LatLng to = new LatLng(order.address.lat, order.address.lng);
       configurePolylines(from, to);
+
+      _positionStream = Geolocator.getPositionStream(
+              desiredAccuracy: LocationAccuracy.best, distanceFilter: 1)
+          .listen((Position position) {
+        // Devuelve la posición actual del repartidor
+        _position = position;
+        // Trazar el marcador del delivery para establecerlo en la posición actual
+        addMarker('delivery', _position.latitude, _position.longitude,
+            'Su posición', '', deliveryMarker);
+
+        // Ubicar la cámara en el centro donde esta ubicado el repartidor
+        animateCamaraToPosition(_position.latitude, _position.longitude);
+
+        refresh();
+      });
     } catch (e) {
       print('Error: $e');
     }
@@ -219,5 +237,10 @@ class DeliveryOrdersMapController {
 
   void openCallCustomer() {
     launch("tel://${order.client.phone}");
+  }
+
+  void dispose() {
+    //Dejar de escuchar los eventos cuando el usuario salga de la página o cierre la aplicación
+    _positionStream?.cancel();
   }
 }
