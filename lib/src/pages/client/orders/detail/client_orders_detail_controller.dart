@@ -8,7 +8,7 @@ import 'package:delivery_alex_salcedo/src/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class DeliveryOrdersDetailController {
+class ClientOrdersDetailController {
   BuildContext context;
   Function refresh;
 
@@ -58,25 +58,8 @@ class DeliveryOrdersDetailController {
   }
 
   void updateOrder() async {
-    if (order.status == 'DESPACHADO') {
-      // Actualizar el estado dela orden a 'EN CAMINO'
-      ResponseApi responseApi =
-          await _ordersProvider.updateToOnTheWayStatus(order);
-
-      Fluttertoast.showToast(
-          msg: responseApi.message, toastLength: Toast.LENGTH_LONG);
-
-      // Si la orden se actualizó su estado a DESPACHADO de manera correcta, navega hacia
-      // la pantalla del mapa
-      if (responseApi.success) {
-        Navigator.pushNamed(context, 'delivery/orders/map',
-            arguments: order.toJson());
-      }
-    } else {
-      // Envía directamente al mapa que muestra el recorrido de la orden
-      Navigator.pushNamed(context, 'delivery/orders/map',
-          arguments: order.toJson());
-    }
+    Navigator.pushNamed(context, 'client/orders/map',
+        arguments: order.toJson());
 
     //User deliveryUser = await _usersProvider.getById(order.idDelivery);
     //sendNotification(deliveryUser.notificationToken);

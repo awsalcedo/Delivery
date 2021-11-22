@@ -290,6 +290,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
               title: Text('Editar perfil'),
               trailing: Icon(Icons.edit_outlined)),
           ListTile(
+              onTap: _con.goToOrdersListPage,
               title: Text('Mis pedidos'),
               trailing: Icon(Icons.shopping_cart_outlined)),
           _con.user != null

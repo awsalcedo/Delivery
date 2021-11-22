@@ -1,18 +1,17 @@
-import 'package:delivery_alex_salcedo/src/pages/delivery/orders/map/delivery_orders_map_controller.dart';
-import 'package:delivery_alex_salcedo/src/utils/my_colors.dart';
+import 'package:delivery_alex_salcedo/src/pages/client/orders/map/client_orders_map_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class DeliveryOrdersMapPage extends StatefulWidget {
-  DeliveryOrdersMapPage({Key key}) : super(key: key);
+class ClientOrdersMapPage extends StatefulWidget {
+  ClientOrdersMapPage({Key key}) : super(key: key);
 
   @override
-  _DeliveryOrdersMapPageState createState() => _DeliveryOrdersMapPageState();
+  _ClientOrdersMapPageState createState() => _ClientOrdersMapPageState();
 }
 
-class _DeliveryOrdersMapPageState extends State<DeliveryOrdersMapPage> {
-  DeliveryOrdersMapController _con = new DeliveryOrdersMapController();
+class _ClientOrdersMapPageState extends State<ClientOrdersMapPage> {
+  ClientOrdersMapController _con = new ClientOrdersMapController();
 
   @override
   void initState() {
@@ -34,7 +33,7 @@ class _DeliveryOrdersMapPageState extends State<DeliveryOrdersMapPage> {
       body: Stack(
         children: [
           Container(
-              height: MediaQuery.of(context).size.height * 0.6,
+              height: MediaQuery.of(context).size.height * 0.67,
               child: _googleMaps()),
           SafeArea(
             child: Column(
@@ -45,8 +44,6 @@ class _DeliveryOrdersMapPageState extends State<DeliveryOrdersMapPage> {
               ],
             ),
           ),
-          Positioned(top: 40, left: 15, child: _showIconGoogleMaps()),
-          Positioned(top: 85, left: 15, child: _showIconWaze())
         ],
       ),
     );
@@ -62,48 +59,6 @@ class _DeliveryOrdersMapPageState extends State<DeliveryOrdersMapPage> {
       myLocationEnabled: false,
       markers: Set<Marker>.of(_con.markers.values),
       polylines: _con.polylines,
-    );
-  }
-
-//_buttonSelectLocation
-  Widget _buttonDeliveredOrder() {
-    return Container(
-      margin: EdgeInsets.only(left: 30, right: 30, top: 5, bottom: 1),
-      child: ElevatedButton(
-        onPressed: _con.updateToDeliveredStatus,
-        style: ElevatedButton.styleFrom(
-            primary: MyColors.primaryColor,
-            padding: EdgeInsets.symmetric(vertical: 5),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12))),
-        child: Stack(
-          children: [
-            Align(
-              alignment: Alignment.center,
-              child: Container(
-                height: 40,
-                alignment: Alignment.center,
-                child: Text(
-                  'ENTREGAR PRODUCTO',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Container(
-                margin: EdgeInsets.only(left: 45, top: 4),
-                height: 30,
-                child: Icon(
-                  Icons.check_circle,
-                  color: Colors.white,
-                  size: 30,
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
     );
   }
 
@@ -132,7 +87,7 @@ class _DeliveryOrdersMapPageState extends State<DeliveryOrdersMapPage> {
 
   Widget _orderDataCard() {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.41,
+      height: MediaQuery.of(context).size.height * 0.33,
       width: double.infinity,
       decoration: BoxDecoration(
           color: Colors.white,
@@ -157,7 +112,6 @@ class _DeliveryOrdersMapPageState extends State<DeliveryOrdersMapPage> {
             indent: 30,
           ),
           _clientInfo(),
-          _buttonDeliveredOrder()
         ],
       ),
     );
@@ -184,8 +138,8 @@ class _DeliveryOrdersMapPageState extends State<DeliveryOrdersMapPage> {
             width: 45,
             child: FadeInImage(
               placeholder: AssetImage('assets/img/no-image.png'),
-              image: _con.order?.client?.image != null
-                  ? NetworkImage(_con.order.client?.image)
+              image: _con.order?.delivery?.image != null
+                  ? NetworkImage(_con.order?.delivery?.image)
                   : AssetImage('assets/img/no-image.png'),
               fit: BoxFit.cover,
               fadeInDuration: Duration(milliseconds: 50),
@@ -194,7 +148,7 @@ class _DeliveryOrdersMapPageState extends State<DeliveryOrdersMapPage> {
           Container(
             margin: EdgeInsets.only(left: 10),
             child: Text(
-              '${_con.order?.client?.name ?? ''} ${_con.order?.client?.lastname ?? ''}',
+              '${_con.order?.delivery?.name ?? ''} ${_con.order?.delivery?.lastname ?? ''}',
               style: TextStyle(color: Colors.black, fontSize: 15),
               maxLines: 1,
             ),
@@ -214,28 +168,6 @@ class _DeliveryOrdersMapPageState extends State<DeliveryOrdersMapPage> {
                 onPressed: _con.openCallCustomer),
           )
         ],
-      ),
-    );
-  }
-
-  Widget _showIconGoogleMaps() {
-    return GestureDetector(
-      onTap: _con.launchGoogleMaps,
-      child: Image.asset(
-        'assets/img/google_maps.png',
-        height: 33,
-        width: 33,
-      ),
-    );
-  }
-
-  Widget _showIconWaze() {
-    return GestureDetector(
-      onTap: _con.launchWaze,
-      child: Image.asset(
-        'assets/img/waze.png',
-        height: 33,
-        width: 33,
       ),
     );
   }

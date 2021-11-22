@@ -17,7 +17,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as location;
 import 'package:url_launcher/url_launcher.dart';
 
-class DeliveryOrdersMapController {
+class ClientOrdersMapController {
   BuildContext context;
   Function refresh;
   Position _position;
