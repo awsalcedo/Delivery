@@ -16,6 +16,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as location;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class DeliveryOrdersMapController {
   BuildContext context;
@@ -46,6 +47,8 @@ class DeliveryOrdersMapController {
 
   double _distanceBetween;
 
+  IO.Socket socket;
+
   Future init(BuildContext context, Function refresh) async {
     this.context = context;
     this.refresh = refresh;
@@ -57,6 +60,14 @@ class DeliveryOrdersMapController {
 
     deliveryMarker = await createdMarker('assets/img/delivery2.png');
     placeOfDeliveryMarker = await createdMarker('assets/img/home.png');
+
+    // Conectarse al namespace de socket io
+    socket = IO.io(
+        'http://${Environment.API_DELIVERY}/orders/delivery', <String, dynamic>{
+      'transports': ['websocket'],
+      'autoConnect': false
+    });
+    socket.connect();
 
     user = User.fromJson(await _sharedPref.read('user'));
 
@@ -124,6 +135,10 @@ class DeliveryOrdersMapController {
           .listen((Position position) {
         // Devuelve la posición actual del repartidor
         _position = position;
+
+        // Emitir la posición del delivery al socket
+        emitPositionDelivery();
+
         // Trazar el marcador del delivery para establecerlo en la posición actual
         addMarker('delivery', _position.latitude, _position.longitude,
             'Su posición', '', deliveryMarker);
@@ -261,6 +276,8 @@ class DeliveryOrdersMapController {
   void dispose() {
     //Dejar de escuchar los eventos cuando el usuario salga de la página o cierre la aplicación
     _positionStream?.cancel();
+    // Desconectarse del socket
+    socket?.disconnect();
   }
 
   // Actualizar el estado de la orden a ENTREGADO
@@ -320,5 +337,14 @@ class DeliveryOrdersMapController {
     } catch (e) {
       await launch(fallbackUrl, forceSafariVC: false, forceWebView: false);
     }
+  }
+
+  // Emitir la posición actual del repartidor
+  void emitPositionDelivery() {
+    socket.emit('position_delivery', {
+      'id_order': order.id,
+      'lat': _position.latitude,
+      'lng': _position.longitude
+    });
   }
 }
