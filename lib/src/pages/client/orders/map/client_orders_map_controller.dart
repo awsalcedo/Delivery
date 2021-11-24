@@ -2,15 +2,12 @@ import 'dart:async';
 
 import 'package:delivery_alex_salcedo/src/api/environment.dart';
 import 'package:delivery_alex_salcedo/src/models/order.dart';
-import 'package:delivery_alex_salcedo/src/models/response_api.dart';
 import 'package:delivery_alex_salcedo/src/models/user.dart';
 import 'package:delivery_alex_salcedo/src/provider/orders_provider.dart';
 import 'package:delivery_alex_salcedo/src/utils/my_colors.dart';
-import 'package:delivery_alex_salcedo/src/utils/my_snackbar.dart';
 import 'package:delivery_alex_salcedo/src/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -118,19 +115,16 @@ class ClientOrdersMapController {
       // Obtener la posición actual y solcictar los permisos
       await _determinePosition();
 
-      // Obtener la última posición conocida del dispositivo, latitud y longitud
-      _position = await Geolocator.getLastKnownPosition();
-
-      animateCamaraToPosition(_position.latitude, _position.longitude);
+      animateCamaraToPosition(order.lat, order.lng);
 
       // Añadir el marcador al mapa
-      addMarker('delivery', _position.latitude, _position.longitude,
-          'Su posición', '', deliveryMarker);
+      addMarker('delivery', order.lat, order.lng, 'Su repartidor', '',
+          deliveryMarker);
 
       addMarker('home', order.address.lat, order.address.lng,
           'Lugar de entrega', '', placeOfDeliveryMarker);
 
-      LatLng from = new LatLng(_position.latitude, _position.longitude);
+      LatLng from = new LatLng(order.lat, order.lng);
       // Punto de entrga dell pedido
       LatLng to = new LatLng(order.address.lat, order.address.lng);
       configurePolylines(from, to);

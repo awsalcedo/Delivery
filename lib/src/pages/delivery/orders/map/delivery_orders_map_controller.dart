@@ -116,6 +116,9 @@ class DeliveryOrdersMapController {
       // Obtener la última posición conocida del dispositivo, latitud y longitud
       _position = await Geolocator.getLastKnownPosition();
 
+      // Guardar la posición del delivery en la orden cuando el repartidor entra por primera vez al mapa
+      saveLocationDelivery();
+
       animateCamaraToPosition(_position.latitude, _position.longitude);
 
       // Añadir el marcador al mapa
@@ -346,5 +349,12 @@ class DeliveryOrdersMapController {
       'lat': _position.latitude,
       'lng': _position.longitude
     });
+  }
+
+  // Guardar la latitud y longitud del repartidor en la orden
+  void saveLocationDelivery() async {
+    order.lat = _position.latitude;
+    order.lng = _position.longitude;
+    await _ordersProvider.updateLatLngDelivery(order);
   }
 }

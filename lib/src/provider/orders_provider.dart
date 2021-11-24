@@ -189,9 +189,9 @@ class OrdersProvider {
     }
   }
 
-  Future<ResponseApi> updateLatLng(Order order) async {
+  Future<ResponseApi> updateLatLngDelivery(Order order) async {
     try {
-      Uri url = Uri.http(_url, '$_api/updateLatLng');
+      Uri url = Uri.http(_url, '$_api/updateLatLngDelivery');
       String bodyParams = json.encode(order);
       Map<String, String> headers = {
         'Content-type': 'application/json',
