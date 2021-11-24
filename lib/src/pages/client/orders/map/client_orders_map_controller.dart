@@ -16,6 +16,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as location;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class ClientOrdersMapController {
   BuildContext context;
@@ -37,14 +38,13 @@ class ClientOrdersMapController {
   Set<Polyline> polylines = {};
   List<LatLng> points = [];
 
-  // Para obtener eventos en tiempo real
-  StreamSubscription _positionStream;
-
   OrdersProvider _ordersProvider = new OrdersProvider();
   User user;
   SharedPref _sharedPref = new SharedPref();
 
   double _distanceBetween;
+
+  IO.Socket socket;
 
   Future init(BuildContext context, Function refresh) async {
     this.context = context;
@@ -57,6 +57,22 @@ class ClientOrdersMapController {
 
     deliveryMarker = await createdMarker('assets/img/delivery2.png');
     placeOfDeliveryMarker = await createdMarker('assets/img/home.png');
+
+    // Conectarse al namespace de socket io
+    socket = IO.io(
+        'http://${Environment.API_DELIVERY}/orders/delivery', <String, dynamic>{
+      'transports': ['websocket'],
+      'autoConnect': false
+    });
+    socket.connect();
+
+    socket.on('position_delivery/${order.id}', (data) {
+      print('Data emitida: ${data}');
+
+      // Añadir el marcador al mapa
+      addMarker('delivery', data['lat'], data['lng'], 'Su repartidor', '',
+          deliveryMarker);
+    });
 
     user = User.fromJson(await _sharedPref.read('user'));
 
@@ -119,22 +135,7 @@ class ClientOrdersMapController {
       LatLng to = new LatLng(order.address.lat, order.address.lng);
       configurePolylines(from, to);
 
-      _positionStream = Geolocator.getPositionStream(
-              desiredAccuracy: LocationAccuracy.best, distanceFilter: 1)
-          .listen((Position position) {
-        // Devuelve la posición actual del repartidor
-        _position = position;
-        // Trazar el marcador del delivery para establecerlo en la posición actual
-        addMarker('delivery', _position.latitude, _position.longitude,
-            'Su posición', '', deliveryMarker);
-
-        // Ubicar la cámara en el centro donde esta ubicado el repartidor
-        animateCamaraToPosition(_position.latitude, _position.longitude);
-
-        isCloseToPlaceOfDelivery();
-
-        refresh();
-      });
+      refresh();
     } catch (e) {
       print('Error: $e');
     }
@@ -259,28 +260,7 @@ class ClientOrdersMapController {
   }
 
   void dispose() {
-    //Dejar de escuchar los eventos cuando el usuario salga de la página o cierre la aplicación
-    _positionStream?.cancel();
-  }
-
-  // Actualizar el estado de la orden a ENTREGADO
-  void updateToDeliveredStatus() async {
-    // Si la distancia entre el punto de entrega y el repartidor es menor menor igual a 200 metros
-    // realizamos la actualización del estado de la orden a ENTREGADO
-    if (_distanceBetween <= 200) {
-      ResponseApi responseApi =
-          await _ordersProvider.updateToDeliveredStatus(order);
-      if (responseApi.success) {
-        Fluttertoast.showToast(
-            msg: responseApi.message, toastLength: Toast.LENGTH_LONG);
-        // Enviar a la pantalla principal
-        Navigator.pushNamedAndRemoveUntil(
-            context, 'delivery/orders/list', (route) => false);
-      }
-    } else {
-      // Mostrar un mensaje para indicarle al repartidor que debe estar más cerca a la posición de entrega
-      MySnackBar.show(context, 'Debe estar más cerca al lugar de entrega');
-    }
+    socket?.disconnect();
   }
 
   void isCloseToPlaceOfDelivery() {
@@ -288,37 +268,5 @@ class ClientOrdersMapController {
     _distanceBetween = Geolocator.distanceBetween(_position.latitude,
         _position.longitude, order.address.lat, order.address.lng);
     print('------ DISTANCIA: $_distanceBetween');
-  }
-
-  void launchWaze() async {
-    var url =
-        'waze://?ll=${order.address.lat.toString()},${order.address.lng.toString()}';
-    var fallbackUrl =
-        'https://waze.com/ul?ll=${order.address.lat.toString()},${order.address.lng.toString()}&navigate=yes';
-    try {
-      bool launched =
-          await launch(url, forceSafariVC: false, forceWebView: false);
-      if (!launched) {
-        await launch(fallbackUrl, forceSafariVC: false, forceWebView: false);
-      }
-    } catch (e) {
-      await launch(fallbackUrl, forceSafariVC: false, forceWebView: false);
-    }
-  }
-
-  void launchGoogleMaps() async {
-    var url =
-        'google.navigation:q=${order.address.lat.toString()},${order.address.lng.toString()}';
-    var fallbackUrl =
-        'https://www.google.com/maps/search/?api=1&query=${order.address.lat.toString()},${order.address.lng.toString()}';
-    try {
-      bool launched =
-          await launch(url, forceSafariVC: false, forceWebView: false);
-      if (!launched) {
-        await launch(fallbackUrl, forceSafariVC: false, forceWebView: false);
-      }
-    } catch (e) {
-      await launch(fallbackUrl, forceSafariVC: false, forceWebView: false);
-    }
   }
 }
