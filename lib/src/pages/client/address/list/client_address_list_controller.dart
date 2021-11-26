@@ -39,7 +39,7 @@ class ClientAddressListController {
 
   void createOrder() async {
     //Obtener la dirección seleccionada por el usuario, que está alamcenada en cache
-    Address a = Address.fromJson(await _sharedPref.read('address') ?? {});
+    /*Address a = Address.fromJson(await _sharedPref.read('address') ?? {});
 
     //Obtener la lista de productos seleccionada por el usuario, que está alamcenada en cache
     List<Product> selectedProducts =
@@ -48,9 +48,9 @@ class ClientAddressListController {
         idClient: user.id, idAddress: a.id, products: selectedProducts);
     ResponseApi responseApi = await _ordersProvider.create(order);
 
-    print('Respuesta orden: ${responseApi.message}');
+    print('Respuesta orden: ${responseApi.message}');*/
 
-    //Navigator.pushNamed(context, 'client/payments/create');
+    Navigator.pushNamed(context, 'client/payments/create');
   }
 
   void handleRadioValueChange(int value) async {

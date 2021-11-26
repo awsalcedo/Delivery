@@ -74,7 +74,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                               horizontal: 10, vertical: 20),
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2, childAspectRatio: 0.7),
+                                  crossAxisCount: 2, childAspectRatio: 0.65),
                           itemCount: snapshot.data?.length ?? 0,
                           itemBuilder: (_, index) {
                             return _cardProduct(snapshot.data[index]);
@@ -150,7 +150,7 @@ class _ClientProductsListPageState extends State<ClientProductsListPage> {
                   ),
                   Spacer(),
                   Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     child: Text(
                       //'${product.price ?? 0}\$',
                       '\$${product.price ?? 0}',

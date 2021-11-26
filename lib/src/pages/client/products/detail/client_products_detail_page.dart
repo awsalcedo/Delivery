@@ -182,7 +182,7 @@ class _ClientProductsDetailPageState extends State<ClientProductsDetailPage> {
         onPressed: _con.addToBag,
         style: ElevatedButton.styleFrom(
             primary: MyColors.primaryColor,
-            padding: EdgeInsets.symmetric(vertical: 10),
+            padding: EdgeInsets.symmetric(vertical: 12),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12))),
         child: Stack(
@@ -190,12 +190,12 @@ class _ClientProductsDetailPageState extends State<ClientProductsDetailPage> {
             Align(
               alignment: Alignment.center,
               child: Container(
-                height: 50,
+                height: 35,
                 alignment: Alignment.center,
                 child: Text(
                   'AGREGAR AL CARRITO',
                   style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 15,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -204,7 +204,7 @@ class _ClientProductsDetailPageState extends State<ClientProductsDetailPage> {
             Align(
               alignment: Alignment.centerLeft,
               child: Container(
-                margin: EdgeInsets.only(left: 45, top: 8),
+                margin: EdgeInsets.only(left: 40, top: 2),
                 height: 30,
                 child: Image.asset('assets/img/bag.png'),
               ),

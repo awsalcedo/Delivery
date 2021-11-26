@@ -92,6 +92,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_credit_card",
+      "rootUri": "file:///Users/alex/development/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_credit_card-2.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_image_slideshow",
       "rootUri": "file:///Users/alex/development/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_image_slideshow-0.0.4",
       "packageUri": "lib/",
@@ -500,7 +506,7 @@
       "languageVersion": "2.7"
     }
   ],
-  "generated": "2021-11-23T04:48:20.060182Z",
+  "generated": "2021-11-25T04:15:52.893357Z",
   "generator": "pub",
   "generatorVersion": "2.12.1"
 }

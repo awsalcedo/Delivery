@@ -151,10 +151,10 @@ class _ClientAddressListPageState extends State<ClientAddressListPage> {
   Widget _textSelectAddress() {
     return Container(
       alignment: Alignment.centerLeft,
-      margin: EdgeInsets.symmetric(horizontal: 40, vertical: 30),
+      margin: EdgeInsets.symmetric(horizontal: 32, vertical: 30),
       child: Text(
         'Seleccione donde recibir sus compras',
-        style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
     );
   }

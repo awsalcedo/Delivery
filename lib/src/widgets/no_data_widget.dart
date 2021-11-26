@@ -7,10 +7,17 @@ class NoDataWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 95),
+      margin: EdgeInsets.only(bottom: 60),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [Image.asset('assets/img/no_items.png'), Text(text)],
+        children: [
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 110),
+            child: Image.asset('assets/img/no_items.png'),
+          ),
+          Container(
+              margin: EdgeInsets.symmetric(horizontal: 70), child: Text(text))
+        ],
       ),
     );
   }

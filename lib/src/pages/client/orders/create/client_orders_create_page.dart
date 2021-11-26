@@ -189,7 +189,7 @@ class _ClientOrdersCreatePageState extends State<ClientOrdersCreatePage> {
 
   Widget _buttomConfirmOrder() {
     return Container(
-      margin: EdgeInsets.only(left: 30, right: 30, top: 30, bottom: 30),
+      margin: EdgeInsets.only(left: 30, right: 30, top: 25, bottom: 30),
       child: ElevatedButton(
         onPressed: _con.goToAddress,
         style: ElevatedButton.styleFrom(
@@ -202,7 +202,7 @@ class _ClientOrdersCreatePageState extends State<ClientOrdersCreatePage> {
             Align(
               alignment: Alignment.center,
               child: Container(
-                height: 45,
+                height: 28,
                 alignment: Alignment.center,
                 child: Text(
                   'CONTINUAR',
@@ -216,12 +216,12 @@ class _ClientOrdersCreatePageState extends State<ClientOrdersCreatePage> {
             Align(
               alignment: Alignment.centerLeft,
               child: Container(
-                margin: EdgeInsets.only(left: 80, top: 8),
-                height: 30,
+                margin: EdgeInsets.only(left: 80, top: 1),
+                height: 27,
                 child: Icon(
                   Icons.check_circle,
                   color: Colors.white,
-                  size: 30,
+                  size: 24,
                 ),
               ),
             )
