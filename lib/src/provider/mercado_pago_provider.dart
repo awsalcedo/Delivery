@@ -20,6 +20,7 @@ class MercadoPagoProvider {
   BuildContext context;
   User user;
 
+  // ignore: missing_return
   Future init(BuildContext context, User user) {
     this.context = context;
     this.user = user;
@@ -31,6 +32,7 @@ class MercadoPagoProvider {
       final url = Uri.https(_urlMercadoPago, '/v1/identification_types',
           {'access_token': _mercadoPagoCredentials.accessToken});
 
+      print('URL_GET TIPO IDENTIFICACIONES: $url');
       final res = await http.get(url);
       final data = json.decode(res.body);
       final result = new MercadoPagoDocumentType.fromJsonList(data);
@@ -42,6 +44,7 @@ class MercadoPagoProvider {
     }
   }
 
+  // Crear el pago en la plataforma de Mercado Pago
   Future<Response> createPayment({
     @required String cardId,
     @required double transactionAmount,
@@ -56,12 +59,14 @@ class MercadoPagoProvider {
     @required Order order,
   }) async {
     try {
-      final url = Uri.http(_url, '/api/payments/createPay');
+      final url = Uri.http(_url, '/api/payments/createPay',
+          {'publick_key': _mercadoPagoCredentials.publicKey});
 
+      // Crear un mapa con los datos a enviar a la API de Mercado Pago
       Map<String, dynamic> body = {
         'order': order,
         'card_id': cardId,
-        'description': 'Flutter Delivery Udemy',
+        'description': 'Delivery Alex Salcedo',
         'transaction_amount': transactionAmount,
         'installments': installments,
         'payment_method_id': paymentMethodId,
@@ -89,7 +94,7 @@ class MercadoPagoProvider {
       final res = await http.post(url, headers: headers, body: bodyParams);
 
       if (res.statusCode == 401) {
-        Fluttertoast.showToast(msg: 'Sesion expirada');
+        Fluttertoast.showToast(msg: 'Sesión expirada');
         new SharedPref().logout(context, user.id);
         return null;
       }
@@ -101,9 +106,12 @@ class MercadoPagoProvider {
     }
   }
 
+  // Obtener el número de cuotas de la API de Mercado Pago
   Future<MercadoPagoPaymentMethodInstallments> getInstallments(
       String bin, double amount) async {
     try {
+      print('BIN: $bin');
+      print('ACCES_TOKEN: $_mercadoPagoCredentials.accessToken');
       final url =
           Uri.https(_urlMercadoPago, '/v1/payment_methods/installments', {
         'access_token': _mercadoPagoCredentials.accessToken,
@@ -111,6 +119,7 @@ class MercadoPagoProvider {
         'amount': '$amount'
       });
 
+      print('URL_GETINSTALLMENTS: $url');
       final res = await http.get(url);
       final data = json.decode(res.body);
       print('DATA INSTALLMENTS: $data');
@@ -125,6 +134,7 @@ class MercadoPagoProvider {
     }
   }
 
+  // Para crear el token que permite asegurar los datos de la tarjeta
   Future<http.Response> createCardToken({
     String cvv,
     String expirationYear,

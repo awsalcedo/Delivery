@@ -1,5 +1,4 @@
 class MercadoPagoCardHolder {
-
   //NOMBRE
   String name;
 
@@ -12,13 +11,12 @@ class MercadoPagoCardHolder {
   //TIPO DE IDENTIFICACION
   String type;
 
-
-  List<MercadoPagoCardHolder> cardHolderList = new List();
+  List<MercadoPagoCardHolder> cardHolderList = [];
 
   MercadoPagoCardHolder();
 
-  MercadoPagoCardHolder.fromJsonList( List<dynamic> jsonList  ){
-    if ( jsonList == null ) {
+  MercadoPagoCardHolder.fromJsonList(List<dynamic> jsonList) {
+    if (jsonList == null) {
       return;
     }
     jsonList.forEach((item) {
@@ -27,18 +25,24 @@ class MercadoPagoCardHolder {
     });
   }
 
-  MercadoPagoCardHolder.fromJsonMap( Map<String, dynamic> json ) {
-    name             = json['name'];
-    number           = json['identification'] != null ? (json['identification']['number'] != null) ? int.parse(json['identification']['number'].toString()) : 0 : 0;
-    subtype          = json['identification'] != null ? json['identification']['subtype'] : null;
-    type             = json['identification'] != null ? json['identification']['type'] : null;
+  MercadoPagoCardHolder.fromJsonMap(Map<String, dynamic> json) {
+    name = json['name'];
+    number = json['identification'] != null
+        ? (json['identification']['number'] != null)
+            ? int.parse(json['identification']['number'].toString())
+            : 0
+        : 0;
+    subtype = json['identification'] != null
+        ? json['identification']['subtype']
+        : null;
+    type =
+        json['identification'] != null ? json['identification']['type'] : null;
   }
 
-  Map<String, dynamic> toJson() =>
-      {
-        'name'             : name,
-        'number'           : number,
-        'subtype'          : subtype,
-        'type'             : type,
+  Map<String, dynamic> toJson() => {
+        'name': name,
+        'number': number,
+        'subtype': subtype,
+        'type': type,
       };
 }

@@ -21,10 +21,10 @@ class MercadoPagoCustomer {
   List<dynamic> metadata;
   String defaultCardId;
   String defaultAddressId;
-  List<MercadoPagoCreditCard> customerCardList = new List();
+  List<MercadoPagoCreditCard> customerCardList = [];
   bool liveMode;
 
-  List<MercadoPagoCustomer> customerList = new List();
+  List<MercadoPagoCustomer> customerList = [];
 
   MercadoPagoCustomer();
 

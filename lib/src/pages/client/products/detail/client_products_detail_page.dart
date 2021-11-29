@@ -6,7 +6,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 
 class ClientProductsDetailPage extends StatefulWidget {
-  Product product;
+  final Product product;
 
   ClientProductsDetailPage({Key key, @required this.product}) : super(key: key);
 

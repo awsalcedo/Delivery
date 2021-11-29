@@ -1,12 +1,10 @@
 import 'package:delivery_alex_salcedo/src/models/order.dart';
 import 'package:delivery_alex_salcedo/src/models/product.dart';
-import 'package:delivery_alex_salcedo/src/models/response_api.dart';
 import 'package:delivery_alex_salcedo/src/models/user.dart';
 import 'package:delivery_alex_salcedo/src/provider/orders_provider.dart';
 import 'package:delivery_alex_salcedo/src/provider/users_provider.dart';
 import 'package:delivery_alex_salcedo/src/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class ClientOrdersDetailController {
   BuildContext context;

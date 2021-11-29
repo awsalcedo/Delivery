@@ -64,7 +64,7 @@ class ClientOrdersMapController {
     socket.connect();
 
     socket.on('position_delivery/${order.id}', (data) {
-      print('Data emitida: ${data}');
+      print('Data emitida: $data');
 
       // Añadir el marcador al mapa
       addMarker('delivery', data['lat'], data['lng'], 'Su repartidor', '',

@@ -18,7 +18,7 @@ class MercadoPagoCardToken {
   DateTime dateDue;
   bool liveMode;
   MercadoPagoCardHolder cardHolder;
-  List<MercadoPagoCardToken> cardTokenList = new List();
+  List<MercadoPagoCardToken> cardTokenList = [];
 
   MercadoPagoCardToken();
 

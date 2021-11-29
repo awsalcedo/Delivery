@@ -1,22 +1,20 @@
 class MercadoPagoTax {
-
   double value;
   String type;
 
-  List<MercadoPagoTax> taxList = new List();
+  List<MercadoPagoTax> taxList = [];
 
   MercadoPagoTax();
 
-  MercadoPagoTax.fromJsonList( List<dynamic> jsonList  ){
-    if ( jsonList == null ) {
+  MercadoPagoTax.fromJsonList(List<dynamic> jsonList) {
+    if (jsonList == null) {
       return;
     }
     jsonList.forEach((item) {
       var tax;
       if (item is MercadoPagoTax) {
         tax = item;
-      }
-      else {
+      } else {
         tax = MercadoPagoTax.fromJsonMap(item);
       }
 
@@ -24,14 +22,11 @@ class MercadoPagoTax {
     });
   }
 
-  MercadoPagoTax.fromJsonMap( Map<String, dynamic> json ) {
-    value     = (json['value'] != null) ? double.parse(json['value'].toString()) : 0;
-    type      = json['type'];
+  MercadoPagoTax.fromJsonMap(Map<String, dynamic> json) {
+    value =
+        (json['value'] != null) ? double.parse(json['value'].toString()) : 0;
+    type = json['type'];
   }
 
-  Map<String, dynamic> toJson() =>
-      {
-        'value'   : value.toString(),
-        'type'    : type
-      };
+  Map<String, dynamic> toJson() => {'value': value.toString(), 'type': type};
 }

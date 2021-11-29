@@ -16,6 +16,7 @@ class ProductsProvider {
   BuildContext context;
   User sessionUser;
 
+  // ignore: missing_return
   Future init(BuildContext context, User sessionUser) {
     this.context = context;
     this.sessionUser = sessionUser;

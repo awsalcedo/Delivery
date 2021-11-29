@@ -1,13 +1,10 @@
 import 'package:delivery_alex_salcedo/src/models/order.dart';
 import 'package:delivery_alex_salcedo/src/models/product.dart';
-import 'package:delivery_alex_salcedo/src/models/user.dart';
 import 'package:delivery_alex_salcedo/src/pages/delivery/orders/detail/delivery_orders_detail_controller.dart';
-import 'package:delivery_alex_salcedo/src/pages/restaurant/orders/detail/restaurant_orders_detail_controller.dart';
 import 'package:delivery_alex_salcedo/src/utils/my_colors.dart';
 import 'package:delivery_alex_salcedo/src/utils/relative_time_util.dart';
 import 'package:delivery_alex_salcedo/src/widgets/no_data_widget.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 

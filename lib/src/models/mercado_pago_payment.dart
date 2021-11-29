@@ -62,7 +62,7 @@ class MercadoPagoPayment {
   String merchantNumber;
   List<dynamic> acquirerReconciliation;
 
-  List<MercadoPagoPayment> creditPaymentList = new List();
+  List<MercadoPagoPayment> creditPaymentList = [];
 
   MercadoPagoPayment(
       {this.id, this.status, this.transactionDetails, this.callBackUrl});

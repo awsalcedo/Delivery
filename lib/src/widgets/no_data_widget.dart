@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class NoDataWidget extends StatelessWidget {
-  String text;
+  final String text;
   NoDataWidget({Key key, this.text}) : super(key: key);
 
   @override

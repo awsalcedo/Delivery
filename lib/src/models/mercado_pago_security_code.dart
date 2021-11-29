@@ -1,17 +1,16 @@
 class MercadoPagoSecurityCode {
-
   //LONGITUD DEL CODIGO DE SEGURIDAD
   int length;
 
   //UBICACION DEL CODIGO DE SEGURIDAD EN LA TARJETA
   String cardLocation;
 
-  List<MercadoPagoSecurityCode> issuerList = new List();
+  List<MercadoPagoSecurityCode> issuerList = [];
 
   MercadoPagoSecurityCode();
 
-  MercadoPagoSecurityCode.fromJsonList( List<dynamic> jsonList  ){
-    if ( jsonList == null ) {
+  MercadoPagoSecurityCode.fromJsonList(List<dynamic> jsonList) {
+    if (jsonList == null) {
       return;
     }
     jsonList.forEach((item) {
@@ -20,14 +19,11 @@ class MercadoPagoSecurityCode {
     });
   }
 
-  MercadoPagoSecurityCode.fromJsonMap( Map<String, dynamic> json ) {
-    length          = json['length'];
-    cardLocation    = json['card_location'];
+  MercadoPagoSecurityCode.fromJsonMap(Map<String, dynamic> json) {
+    length = json['length'];
+    cardLocation = json['card_location'];
   }
 
   Map<String, dynamic> toJson() =>
-      {
-        'length'         : length,
-        'card_location'  : cardLocation
-      };
+      {'length': length, 'card_location': cardLocation};
 }

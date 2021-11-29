@@ -17,6 +17,7 @@ class ClientAddressMapController {
 
   Completer<GoogleMapController> _mapController = Completer();
 
+  // ignore: missing_return
   Future init(BuildContext context, Function refresh) {
     this.context = context;
     this.refresh = refresh;

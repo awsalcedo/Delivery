@@ -1,7 +1,4 @@
 import 'package:delivery_alex_salcedo/src/models/address.dart';
-import 'package:delivery_alex_salcedo/src/models/order.dart';
-import 'package:delivery_alex_salcedo/src/models/product.dart';
-import 'package:delivery_alex_salcedo/src/models/response_api.dart';
 import 'package:delivery_alex_salcedo/src/models/user.dart';
 import 'package:delivery_alex_salcedo/src/provider/address_provider.dart';
 import 'package:delivery_alex_salcedo/src/provider/orders_provider.dart';
@@ -38,18 +35,6 @@ class ClientAddressListController {
   }
 
   void createOrder() async {
-    //Obtener la dirección seleccionada por el usuario, que está alamcenada en cache
-    /*Address a = Address.fromJson(await _sharedPref.read('address') ?? {});
-
-    //Obtener la lista de productos seleccionada por el usuario, que está alamcenada en cache
-    List<Product> selectedProducts =
-        Product.fromJsonList(await _sharedPref.read('order')).toList;
-    Order order = new Order(
-        idClient: user.id, idAddress: a.id, products: selectedProducts);
-    ResponseApi responseApi = await _ordersProvider.create(order);
-
-    print('Respuesta orden: ${responseApi.message}');*/
-
     Navigator.pushNamed(context, 'client/payments/create');
   }
 

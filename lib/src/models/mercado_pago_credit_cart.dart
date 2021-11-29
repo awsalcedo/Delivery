@@ -42,7 +42,7 @@ class MercadoPagoCreditCard {
   //ULTIMA FECHA DE ACTUALIZACION DE LA TARJETA
   DateTime dateLastUpdate;
 
-  List<MercadoPagoCreditCard> creditCardList = new List();
+  List<MercadoPagoCreditCard> creditCardList = [];
 
   MercadoPagoCreditCard({
     this.id,

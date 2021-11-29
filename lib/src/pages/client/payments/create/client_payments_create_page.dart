@@ -87,7 +87,7 @@ class _ClientPaymentsCreatePageState extends State<ClientPaymentsCreatePage> {
     return Container(
       margin: EdgeInsets.all(20),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: _con.createCardToken,
         style: ElevatedButton.styleFrom(
             primary: MyColors.primaryColor,
             padding: EdgeInsets.symmetric(vertical: 5),
@@ -159,8 +159,7 @@ class _ClientPaymentsCreatePageState extends State<ClientPaymentsCreatePage> {
                         value: _con.typeDocument,
                         onChanged: (option) {
                           setState(() {
-                            print('Repartidor seleccionado $option');
-                            //_con.typeDocument = option; // ESTABLECIENDO EL VALOR SELECCIONADO
+                            _con.typeDocument = option;
                           });
                         },
                       ),
@@ -174,7 +173,7 @@ class _ClientPaymentsCreatePageState extends State<ClientPaymentsCreatePage> {
           Flexible(
             flex: 4,
             child: TextField(
-              //controller: _con.documentNumberController,
+              controller: _con.documentNumberController,
               keyboardType: TextInputType.phone,
               decoration: InputDecoration(
                   border: OutlineInputBorder(),
