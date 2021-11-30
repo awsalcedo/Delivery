@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:delivery_alex_salcedo/src/models/category.dart';
 import 'package:delivery_alex_salcedo/src/models/product.dart';
 import 'package:delivery_alex_salcedo/src/models/user.dart';
@@ -18,6 +20,12 @@ class ClientProductsListController {
   ProductsProvider _productsProvider = new ProductsProvider();
   List<Category> categories = [];
 
+  Timer searchOnStoppedTyping;
+
+  String productName = '';
+
+  //PushNotificationsProvider pushNotificationsProvider = new PushNotificationsProvider();
+
   Future init(BuildContext context, Function refresh) async {
     this.context = context;
     this.refresh = refresh;
@@ -30,8 +38,15 @@ class ClientProductsListController {
     refresh();
   }
 
-  Future<List<Product>> getProductsByCategory(String idCategory) async {
-    return await _productsProvider.getProductsByCategory(idCategory);
+  Future<List<Product>> getProductsByCategory(
+      String idCategory, String productName) async {
+    if (productName.isEmpty) {
+      // Traer los productos por categoría
+      return await _productsProvider.getProductsByCategory(idCategory);
+    } else {
+      return await _productsProvider.getByCategoryAndProductName(
+          idCategory, productName);
+    }
   }
 
   void getCategories() async {
@@ -67,5 +82,22 @@ class ClientProductsListController {
 
   void goToOrdersListPage() {
     Navigator.pushNamed(context, 'client/orders/list');
+  }
+
+  void onChangeText(String text) {
+    const duration = Duration(
+        milliseconds:
+            800); // set the duration that you want call search() after that.
+    if (searchOnStoppedTyping != null) {
+      searchOnStoppedTyping.cancel();
+      refresh();
+    }
+
+    searchOnStoppedTyping = new Timer(duration, () {
+      productName = text;
+      refresh();
+      // getProducts(idCategory, text)
+      print('TEXTO COMPLETO $text');
+    });
   }
 }
