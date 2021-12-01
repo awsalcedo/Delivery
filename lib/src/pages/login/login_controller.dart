@@ -1,5 +1,6 @@
 import 'package:delivery_alex_salcedo/src/models/response_api.dart';
 import 'package:delivery_alex_salcedo/src/models/user.dart';
+import 'package:delivery_alex_salcedo/src/provider/push_notifications_provider.dart';
 import 'package:delivery_alex_salcedo/src/provider/users_provider.dart';
 import 'package:delivery_alex_salcedo/src/utils/my_snackbar.dart';
 import 'package:delivery_alex_salcedo/src/utils/shared_pref.dart';
@@ -13,6 +14,9 @@ class LoginController {
   UsersProvider usersProvider = new UsersProvider();
   SharedPref _sharedPref = new SharedPref();
 
+  PushNotificationsProvider pushNotificationsProvider =
+      new PushNotificationsProvider();
+
   Future init(BuildContext context) async {
     this.context = context;
     await usersProvider.init(context);
@@ -20,6 +24,7 @@ class LoginController {
     User user = User.fromJson(await _sharedPref.read('user') ?? {});
 
     if (user?.sessionToken != null) {
+      pushNotificationsProvider.saveToken(user.id);
       if (user.roles.length > 1) {
         Navigator.pushNamedAndRemoveUntil(context, 'roles', (route) => false);
       } else {
@@ -44,6 +49,8 @@ class LoginController {
     if (responseApi.success) {
       User user = User.fromJson(responseApi.data);
       _sharedPref.save('user', user.toJson());
+      // Almacenar el toke de notificaciones del usuario
+      pushNotificationsProvider.saveToken(user.id);
 
       print('USUARIO LOGUEADO: ${user.toJson()}');
       //To find out if a user has more than one role

@@ -194,4 +194,25 @@ class UsersProvider {
       return null;
     }
   }
+
+  // Actualizar el token de notificaciones del usuario
+  Future<ResponseApi> updateNotificationToken(
+      String idUser, String token) async {
+    try {
+      Uri url = Uri.http(_url, '$_api/updateNotificationToken');
+      String bodyParams =
+          json.encode({'id': idUser, 'notification_token': token});
+      Map<String, String> headers = {
+        'Content-type': 'application/json',
+      };
+      final res = await http.put(url, headers: headers, body: bodyParams);
+
+      final data = json.decode(res.body);
+      ResponseApi responseApi = ResponseApi.fromJson(data);
+      return responseApi;
+    } catch (e) {
+      print('Error: $e');
+      return null;
+    }
+  }
 }

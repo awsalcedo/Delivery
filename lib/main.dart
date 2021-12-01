@@ -17,10 +17,25 @@ import 'package:delivery_alex_salcedo/src/pages/restaurant/categories/create/res
 import 'package:delivery_alex_salcedo/src/pages/restaurant/orders/list/restaurant_orders_list_page.dart';
 import 'package:delivery_alex_salcedo/src/pages/restaurant/products/create/restaurant_products_create_page.dart';
 import 'package:delivery_alex_salcedo/src/pages/roles/roles_page.dart';
+import 'package:delivery_alex_salcedo/src/provider/push_notifications_provider.dart';
 import 'package:delivery_alex_salcedo/src/utils/my_colors.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+PushNotificationsProvider pushNotificationsProvider =
+    new PushNotificationsProvider();
+
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  print('Handling a background message ${message.messageId}');
+}
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  pushNotificationsProvider.initPushNotifications();
   runApp(MyApp());
 }
 
@@ -32,11 +47,21 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
+
+  @override
+  void initState() {
+    super.initState();
+    // Empezar a escuchar los cambios cada vez que envían nuevas notifiaciones
+    pushNotificationsProvider.onMessageListener();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Delivery App Flutter',
         debugShowCheckedModeBanner: false,
+        navigatorKey: navigatorKey,
         initialRoute: 'login',
         routes: {
           'login': (BuildContext context) => LoginPage(),

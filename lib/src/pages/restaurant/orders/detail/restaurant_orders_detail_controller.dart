@@ -3,6 +3,7 @@ import 'package:delivery_alex_salcedo/src/models/product.dart';
 import 'package:delivery_alex_salcedo/src/models/response_api.dart';
 import 'package:delivery_alex_salcedo/src/models/user.dart';
 import 'package:delivery_alex_salcedo/src/provider/orders_provider.dart';
+import 'package:delivery_alex_salcedo/src/provider/push_notifications_provider.dart';
 import 'package:delivery_alex_salcedo/src/provider/users_provider.dart';
 import 'package:delivery_alex_salcedo/src/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +27,8 @@ class RestaurantOrdersDetailController {
   List<User> usersDelivery = [];
   UsersProvider _usersProvider = new UsersProvider();
   OrdersProvider _ordersProvider = new OrdersProvider();
-  //PushNotificationsProvider pushNotificationsProvider = new PushNotificationsProvider();
+  PushNotificationsProvider pushNotificationsProvider =
+      new PushNotificationsProvider();
   String idDelivery;
 
   Future init(BuildContext context, Function refresh, Order order) async {
@@ -46,15 +48,12 @@ class RestaurantOrdersDetailController {
     refresh();
   }
 
+  // Enviar una notificación
   void sendNotification(String tokenDelivery) {
     Map<String, dynamic> data = {'click_action': 'FLUTTER_NOTIFICATION_CLICK'};
 
-    /*pushNotificationsProvider.sendMessage(
-        tokenDelivery,
-        data,
-        'PEDIDO ASIGNADO',
-        'te han asignado un pedido'
-    );*/
+    pushNotificationsProvider.sendMessage(
+        tokenDelivery, data, 'PEDIDO ASIGNADO', 'le han asignado un pedido');
   }
 
   void updateOrder() async {
@@ -62,9 +61,11 @@ class RestaurantOrdersDetailController {
       order.idDelivery = idDelivery;
       ResponseApi responseApi =
           await _ordersProvider.updateToDispatchedStatus(order);
-
+      // Obtener el delivery por su id
       User deliveryUser = await _usersProvider.getById(order.idDelivery);
-      //sendNotification(deliveryUser.notificationToken);
+      print(
+          'TOKEN DE NOTIFICACIONES DEL DELIVERY: ${deliveryUser.notificationToken}');
+      sendNotification(deliveryUser.notificationToken);
 
       Fluttertoast.showToast(
           msg: responseApi.message, toastLength: Toast.LENGTH_LONG);
