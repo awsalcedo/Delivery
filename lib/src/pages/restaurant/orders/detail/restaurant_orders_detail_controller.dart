@@ -53,7 +53,7 @@ class RestaurantOrdersDetailController {
     Map<String, dynamic> data = {'click_action': 'FLUTTER_NOTIFICATION_CLICK'};
 
     pushNotificationsProvider.sendMessage(
-        tokenDelivery, data, 'PEDIDO ASIGNADO', 'le han asignado un pedido');
+        tokenDelivery, data, 'PEDIDO ASIGNADO', 'tiene asignado un pedido');
   }
 
   void updateOrder() async {

@@ -5,6 +5,7 @@ import 'package:delivery_alex_salcedo/src/models/order.dart';
 import 'package:delivery_alex_salcedo/src/models/response_api.dart';
 import 'package:delivery_alex_salcedo/src/models/user.dart';
 import 'package:delivery_alex_salcedo/src/provider/orders_provider.dart';
+import 'package:delivery_alex_salcedo/src/provider/push_notifications_provider.dart';
 import 'package:delivery_alex_salcedo/src/utils/my_colors.dart';
 import 'package:delivery_alex_salcedo/src/utils/my_snackbar.dart';
 import 'package:delivery_alex_salcedo/src/utils/shared_pref.dart';
@@ -49,6 +50,9 @@ class DeliveryOrdersMapController {
 
   IO.Socket socket;
 
+  PushNotificationsProvider pushNotificationsProvider =
+      new PushNotificationsProvider();
+
   Future init(BuildContext context, Function refresh) async {
     this.context = context;
     this.refresh = refresh;
@@ -74,6 +78,17 @@ class DeliveryOrdersMapController {
     _ordersProvider.init(context, user);
 
     checkGPS();
+  }
+
+  // Enviar una notificación
+  void sendNotification(String tokenUser) {
+    Map<String, dynamic> data = {'click_action': 'FLUTTER_NOTIFICATION_CLICK'};
+
+    pushNotificationsProvider.sendMessage(
+        tokenUser,
+        data,
+        'REPARTIDOR ACERCANDOSE',
+        'Su repartidor está cerca al lugar de entrega');
   }
 
   Future<Null> setLocationDraggableInfo() async {
@@ -308,6 +323,9 @@ class DeliveryOrdersMapController {
     _distanceBetween = Geolocator.distanceBetween(_position.latitude,
         _position.longitude, order.address.lat, order.address.lng);
     print('------ DISTANCIA: $_distanceBetween');
+    if (_distanceBetween <= 200) {
+      sendNotification(user.notificationToken);
+    }
   }
 
   void launchWaze() async {

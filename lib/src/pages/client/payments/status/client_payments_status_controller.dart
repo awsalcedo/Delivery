@@ -1,5 +1,6 @@
 import 'package:delivery_alex_salcedo/src/models/mercado_pago_payment.dart';
 import 'package:delivery_alex_salcedo/src/models/user.dart';
+import 'package:delivery_alex_salcedo/src/provider/push_notifications_provider.dart';
 import 'package:delivery_alex_salcedo/src/provider/users_provider.dart';
 import 'package:delivery_alex_salcedo/src/utils/shared_pref.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,8 @@ class ClientPaymentsStatusController {
 
   String errorMessage;
 
-  //PushNotificationsProvider pushNotificationsProvider = new PushNotificationsProvider();
+  PushNotificationsProvider pushNotificationsProvider =
+      new PushNotificationsProvider();
 
   User user;
   SharedPref _sharedPref = new SharedPref();
@@ -29,17 +31,20 @@ class ClientPaymentsStatusController {
     // Obtenemos la data de la pantalla de pago de la orden
     mercadoPagoPayment = MercadoPagoPayment.fromJsonMap(arguments);
     print('Mercado pago Payment: ${mercadoPagoPayment.toJson()}');
+    user = User.fromJson(await _sharedPref.read('user'));
 
     // Si el pago fue rechazo mostrar mensajes al usuario
     if (mercadoPagoPayment.status == 'rejected') {
       createErrorMessage();
+    } else {
+      usersProvider.init(context, sessionUser: user);
+      tokens = await usersProvider.getAdminsNotificationTokens();
+      sendNotification();
     }
 
     user = User.fromJson(await _sharedPref.read('user'));
     usersProvider.init(context, sessionUser: user);
 
-    //tokens = await usersProvider.getAdminsNotificationTokens();
-    //sendNotification();
     refresh();
   }
 
@@ -53,12 +58,8 @@ class ClientPaymentsStatusController {
 
     Map<String, dynamic> data = {'click_action': 'FLUTTER_NOTIFICATION_CLICK'};
 
-    /*pushNotificationsProvider.sendMessageMultiple(
-        registration_id,
-        data,
-        'COMPRA EXITOSA',
-        'Un cliente ha realizado un pedido'
-    );*/
+    pushNotificationsProvider.sendMessageMultiple(registration_id, data,
+        'COMPRA EXITOSA', 'Un cliente ha realizado un pedido');
   }
 
   void finishShopping() {

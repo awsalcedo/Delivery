@@ -215,4 +215,31 @@ class UsersProvider {
       return null;
     }
   }
+
+  // Obtener los tokes de notificación de los usuarios con el rol de Administradores
+  Future<List<String>> getAdminsNotificationTokens() async {
+    try {
+      Uri url = Uri.http(_url, '$_api/getAdminsNotificationTokens');
+      Map<String, String> headers = {
+        'Content-type': 'application/json',
+        'Authorization': sessionUser.sessionToken
+      };
+      final res = await http.get(url, headers: headers);
+
+      if (res.statusCode == 401) {
+        // NO AUTORIZADO
+        Fluttertoast.showToast(msg: 'Su sesión expiró');
+        new SharedPref().logout(context, sessionUser.id);
+      }
+
+      final data = json.decode(res.body);
+      final tokens = List<String>.from(data);
+
+      print('TOKENS DE ADMIN $tokens');
+      return tokens;
+    } catch (e) {
+      print('Error: $e');
+      return null;
+    }
+  }
 }

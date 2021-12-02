@@ -26,7 +26,6 @@ class DeliveryOrdersDetailController {
   List<User> usersDelivery = [];
   UsersProvider _usersProvider = new UsersProvider();
   OrdersProvider _ordersProvider = new OrdersProvider();
-  //PushNotificationsProvider pushNotificationsProvider = new PushNotificationsProvider();
   String idDelivery;
 
   Future init(BuildContext context, Function refresh, Order order) async {
@@ -44,17 +43,6 @@ class DeliveryOrdersDetailController {
     getTotal();
     getUsersDelivery();
     refresh();
-  }
-
-  void sendNotification(String tokenDelivery) {
-    Map<String, dynamic> data = {'click_action': 'FLUTTER_NOTIFICATION_CLICK'};
-
-    /*pushNotificationsProvider.sendMessage(
-        tokenDelivery,
-        data,
-        'PEDIDO ASIGNADO',
-        'te han asignado un pedido'
-    );*/
   }
 
   void updateOrder() async {

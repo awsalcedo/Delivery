@@ -24,8 +24,6 @@ class ClientProductsListController {
 
   String productName = '';
 
-  //PushNotificationsProvider pushNotificationsProvider = new PushNotificationsProvider();
-
   Future init(BuildContext context, Function refresh) async {
     this.context = context;
     this.refresh = refresh;
@@ -33,6 +31,7 @@ class ClientProductsListController {
     user = User.fromJson(await _sharedPref.read('user'));
     _categoriesProvider.init(context, user);
     _productsProvider.init(context, user);
+
     getCategories();
     //Actualizar la página
     refresh();
